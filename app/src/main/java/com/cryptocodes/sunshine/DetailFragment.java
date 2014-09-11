@@ -228,9 +228,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             float windDirStr = data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_DEGREES));
             mWindView.setText(Utility.getFormattedWind(getActivity(), windSpeedStr, windDirStr));
 
-            MyView myViewControl = (MyView)getActivity().findViewById(R.id.myView);
-            if (myViewControl != null)
-                myViewControl.setDegrees(windDirStr);
+//            MyView myViewControl = (MyView)getActivity().findViewById(R.id.myView);
+//            if (myViewControl != null)
+//                myViewControl.setDegrees(windDirStr);
 
             // Read pressure from cursor and update view
             float pressure = data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_PRESSURE));

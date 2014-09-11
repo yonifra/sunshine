@@ -9,9 +9,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
+import com.cryptocodes.sunshine.data.WeatherContract;
+import com.cryptocodes.sunshine.sync.SunshineSyncAdapter;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.
- * <p/>
+ * <p>
  * See <a href="http://developer.android.com/design/patterns/settings.html">
  * Android Design: Settings</a> for design guidelines and the <a
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
@@ -19,6 +22,10 @@ import android.preference.PreferenceManager;
  */
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
+
+    // since we use the preference change initially to populate the summary
+    // field, we'll ignore that change at start of the activity
+    boolean mBindingPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,8 @@ public class SettingsActivity extends PreferenceActivity
      * is changed.)
      */
     private void bindPreferenceSummaryToValue(Preference preference) {
+        mBindingPreference = true;
+
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(this);
 
@@ -47,11 +56,23 @@ public class SettingsActivity extends PreferenceActivity
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+
+        mBindingPreference = false;
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
+
+        // are we starting the preference activity?
+        if ( !mBindingPreference ) {
+            if (preference.getKey().equals(getString(R.string.pref_location_key))) {
+                SunshineSyncAdapter.syncImmediately(this);
+            } else {
+                // notify code that weather may be impacted
+                getContentResolver().notifyChange(WeatherContract.WeatherEntry.CONTENT_URI, null);
+            }
+        }
 
         if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
@@ -71,9 +92,6 @@ public class SettingsActivity extends PreferenceActivity
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public Intent getParentActivityIntent() {
-        // This flag checks if the main activity is already running in our task, and use that one instead
-        // of creating a brand new main activity instance.
-        // This method didn't exist prior to JB, so we'll add a TargetAPI annotation
         return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 }

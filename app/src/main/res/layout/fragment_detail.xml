@@ -132,11 +132,11 @@
                     android:text="Pressure: 1014"
                     android:textSize="22sp" />
 
-                <com.cryptocodes.sunshine.CustomControls.MyView
-                    android:id="@+id/myView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp" />
+                <!--<com.cryptocodes.sunshine.CustomControls.MyView-->
+                    <!--android:id="@+id/myView"-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:layout_marginTop="10dp" />-->
 
             </LinearLayout>
         </LinearLayout>
