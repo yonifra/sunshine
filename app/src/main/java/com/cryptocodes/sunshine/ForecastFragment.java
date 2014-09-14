@@ -89,7 +89,7 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
     private void openPreferredLocationInMap() {
         if(null != mForecastAdapter) {
             Cursor c = mForecastAdapter.getCursor();
-            if (null != c) {
+            if (null != c && c.getCount() > 0) {
                 c.moveToPosition(0);
                 String posLat = c.getString(COL_COORD_LAT);
                 String posLong = c.getString(COL_COORD_LONG);
