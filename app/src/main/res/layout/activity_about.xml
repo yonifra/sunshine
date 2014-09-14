@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cryptocodes"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="14dp"
+        android:text="Made with love by the folks at Cryptocodes, Inc.\nVersion 1.0.1\nSeptember 14th, 2014"/>
+
+    <TextView android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="14dp"
+        android:layout_height="wrap_content" android:text="@string/websiteUrl"
+        android:autoLink="web" android:id="@+id/websiteUrl"
+        android:layout_gravity="center"
+        android:linksClickable="true" />
+</LinearLayout>

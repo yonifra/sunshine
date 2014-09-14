@@ -28,7 +28,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Today"
                     android:textAppearance="?android:textAppearanceLarge" />
 
                 <TextView
@@ -36,7 +35,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="June 21"
                     android:textColor="@color/detail_date_color"
                     android:textSize="20sp" />
 
@@ -65,7 +63,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="top"
                             android:fontFamily="sans-serif-light"
-                            android:text="31"
                             android:textSize="96sp" />
 
                         <TextView
@@ -73,7 +70,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
-                            android:text="21"
                             android:textColor="@color/detail_date_color"
                             android:textSize="48sp" />
 
@@ -88,8 +84,7 @@
                         <ImageView
                             android:id="@+id/detail_icon"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/detail_forecast_textview"
@@ -97,7 +92,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="Clear"
                             android:textColor="@color/detail_date_color"
                             android:textSize="22sp" />
 
@@ -115,7 +109,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Humidity: 38%"
                         android:textSize="22sp" />
 
                     <TextView
@@ -124,7 +117,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:paddingTop="4dp"
-                        android:text="Wind: 38 km/h NW"
                         android:textSize="22sp" />
 
                     <TextView
@@ -133,7 +125,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:paddingTop="4dp"
-                        android:text="Pressure: 1014"
                         android:textSize="22sp" />
 
                 </LinearLayout>

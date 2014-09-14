@@ -1,14 +1,9 @@
 package com.cryptocodes.sunshine;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
@@ -25,6 +20,7 @@ import android.widget.ListView;
 
 import com.cryptocodes.sunshine.data.WeatherContract;
 import com.cryptocodes.sunshine.sync.SunshineSyncAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingRightInAnimationAdapter;
 
 import java.util.Date;
 
@@ -75,8 +71,6 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
             LocationEntry.COLUMN_COORD_LONG
     };
     private ForecastAdapter mForecastAdapter;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
     private String mLocation;
     private ListView mListView;
     private int mPosition = ListView.INVALID_POSITION;
@@ -147,7 +141,11 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
 
         // Get a reference to the ListView, and attach this adapter to it.
         mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
-        mListView.setAdapter(mForecastAdapter);
+
+        SwingRightInAnimationAdapter animationAdapter = new SwingRightInAnimationAdapter(mForecastAdapter);
+        animationAdapter.setAbsListView(mListView);
+
+        mListView.setAdapter(animationAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -237,6 +235,10 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data.getCount() == 0) {
+            updateWeather();
+        }
+
         mForecastAdapter.swapCursor(data);
         if (mPosition != ListView.INVALID_POSITION) {
             // If we don't need to restart the loader, and there's a desired position to restore
