@@ -12,6 +12,7 @@
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_label">Location</string>
     <string name="pref_location_default" translatable="false">94043</string>
+    <string name="pref_location_hint">Location zip code (e.g 94034)</string>
     <string name="pref_units_default" translatable="false">metric</string>
     <string name="pref_units_label">Temperature Units</string>
     <string name="pref_units_key" translatable="false">units</string>

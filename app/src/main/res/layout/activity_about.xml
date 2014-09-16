@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
         android:textSize="14dp"
-        android:text="Made with love by the folks at Cryptocodes, Inc.\nVersion 1.0.1\nSeptember 14th, 2014"/>
+        android:text="Made with love by the folks at Cryptocodes, Inc.\nVersion 1.0.3\nSeptember 16th, 2014"/>
 
     <TextView android:layout_width="wrap_content"
         android:fontFamily="sans-serif-condensed"

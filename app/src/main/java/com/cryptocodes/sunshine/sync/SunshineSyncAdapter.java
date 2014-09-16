@@ -259,11 +259,13 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 if (i == 0) {
                     notifyWeather(high, low, description, weatherId);
                 }
+
             }
             if ( cVVector.size() > 0 ) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
 
+                // Remove all data from before yesterday (to prevent app from growing indefinitely)
                 Calendar cal = Calendar.getInstance(); //Get's a calendar object with the current time.
                 cal.add(Calendar.DATE, -1); //Signifies yesterday's date
                 String yesterdayDate = WeatherContract.getDbDateString(cal.getTime());
@@ -271,7 +273,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                         WeatherEntry.COLUMN_DATETEXT + " <= ?",
                         new String[] {yesterdayDate});
 
-                //notifyWeather(, low, description, weatherId);
+                mContext.getContentResolver().bulkInsert(WeatherEntry.CONTENT_URI, cvArray);
             }
             Log.d(LOG_TAG, "FetchWeatherTask Complete. " + cVVector.size() + " Inserted");
 
