@@ -24,6 +24,7 @@
         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.cryptocodes.sunshine.UPDATE_CITY_NAME" />
             </intent-filter>
         </activity>
         <activity
@@ -83,6 +84,12 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
+
+        <!--<receiver android:name="com.cryptocodes.sunshine.MainActivity$MainReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.cryptocodes.sunshine.UPDATE_CITY_NAME" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

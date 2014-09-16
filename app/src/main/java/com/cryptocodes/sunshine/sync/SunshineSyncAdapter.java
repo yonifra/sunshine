@@ -54,6 +54,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     // 1000 milliseconds (1 second) * 60 seconds (1 minute) * 180 = 3 hours
     public static final int SYNC_INTERVAL = 60 * 180;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
+    public static String CURRENT_CITY_NAME = "";
 
     private final Context mContext;
 
@@ -277,10 +278,16 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             Log.d(LOG_TAG, "FetchWeatherTask Complete. " + cVVector.size() + " Inserted");
 
+            CURRENT_CITY_NAME = cityName;
+            Intent intent = new Intent("com.cryptocodes.sunshine.UPDATE_CITY_NAME");
+            intent.putExtra("city_name",cityName);
+            getContext().sendBroadcast(intent);
+
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
         }
+
         return;
     }
 

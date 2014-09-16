@@ -1,7 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sunshine="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity" >
+
+    <item android:id="@+id/action_city_name"
+        android:title="N/A"
+        android:orderInCategory="1"
+        sunshine:showAsAction="always" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="101"

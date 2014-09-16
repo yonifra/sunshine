@@ -1,6 +1,9 @@
 package com.cryptocodes.sunshine;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,12 +19,18 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    private static Menu mMenu; // reference to the menu
     private boolean mTwoPane;
+    private IntentFilter mCityNameFilter;
+    private MainReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        receiver = new MainReceiver();
+
         if (findViewById(R.id.weather_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp). If this view is present, then the activity should be
@@ -46,15 +55,49 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             forecastFragment.setUseTodayLayout(!mTwoPane);
         }
 
+        // Create the update city name filter, which will be used to get messages of city name update
+        // and notify the action bar accordingly
+        mCityNameFilter = new IntentFilter("com.cryptocodes.sunshine.UPDATE_CITY_NAME");
+
+        Log.v(LOG_TAG, "Starting sync from within MainActivity");
+
         SunshineSyncAdapter.initializeSyncAdapter(this);
+        SunshineSyncAdapter.syncImmediately(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, mCityNameFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        mMenu = menu;
+
+        updateCityName(SunshineSyncAdapter.CURRENT_CITY_NAME);
         return true;
+    }
+
+    public void updateCityName(final String cityName) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MenuItem item = mMenu.findItem(R.id.action_city_name);
+
+                if (item != null) {
+                    item.setTitle(cityName);
+                }
+            }
+        });
     }
 
     @Override
@@ -72,10 +115,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             return true;
         }
 
+        updateCityName(SunshineSyncAdapter.CURRENT_CITY_NAME);
+
         return super.onOptionsItemSelected(item);
     }
-
-
 
     @Override
     public void onItemSelected(String date) {
@@ -96,6 +139,15 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             Intent intent = new Intent(this, DetailActivity.class)
                     .putExtra(DetailActivity.DATE_KEY, date);
             startActivity(intent);
+        }
+    }
+
+    public class MainReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String cityName = intent.getStringExtra("city_name");
+            updateCityName(cityName);
         }
     }
 }

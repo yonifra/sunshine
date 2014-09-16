@@ -84,5 +84,9 @@
     <!-- SyncAdapter related -->
     <string name="sync_account_type">sunshine.cryptocodes.com</string>
     <string name="content_authority">"com.cryptocodes.sunshine"</string>
+    <string name="about_message">Made with love by the folks at Cryptocodes, Inc.</string>
+    <string name="about_version">Version 1.0.3</string>
+    <string name="about_date">September 16th, 2014</string>
+    <string name="about_weather_provider">Weather information provided by OpenWeatherMap</string>
 
 </resources>
