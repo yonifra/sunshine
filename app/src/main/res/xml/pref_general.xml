@@ -4,11 +4,21 @@
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <CheckBoxPreference
+        android:key="@string/pref_enable_gps_location"
+        android:title="@string/pref_enable_gps_header"
+        android:summaryOff="@string/pref_enable_gps_false"
+        android:summaryOn="@string/pref_enable_gps_true"
+        android:disableDependentsState="true"
+        android:defaultValue="@string/pref_enable_gps_default"
+        />
+
     <EditTextPreference
         android:key="@string/pref_location_key"
         android:title="@string/pref_location_label"
         android:defaultValue="@string/pref_location_default"
         android:hint="@string/pref_location_hint"
+        android:dependency="@string/pref_enable_gps_location"
         android:inputType="text"
         android:singleLine="true" />
 
