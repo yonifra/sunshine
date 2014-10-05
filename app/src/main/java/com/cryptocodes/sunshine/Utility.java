@@ -2,21 +2,55 @@ package com.cryptocodes.sunshine;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.cryptocodes.sunshine.data.WeatherContract;
+import com.cryptocodes.sunshine.sync.SunshineSyncAdapter;
+import com.google.android.gms.location.LocationClient;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Utility {
+
     public static String getPreferredLocation(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(context.getString(R.string.pref_location_key),
-                context.getString(R.string.pref_location_default));
+
+        if (prefs.getBoolean(context.getString(R.string.pref_enable_gps_location), context.getString(R.string.pref_enable_gps_default) == "true") && MainActivity.CURRENT_GPS_CITY_NAME != null)
+        {
+            return MainActivity.CURRENT_GPS_CITY_NAME;
+        }
+
+        return prefs.getString(context.getString(R.string.pref_location_key), context.getString(R.string.pref_location_default));
+    }
+
+    private static String InitializeLocationManager(Context context)
+    {
+        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+
+        Criteria criteriaForLocationService = new Criteria();
+        criteriaForLocationService.setAccuracy(Criteria.ACCURACY_COARSE);
+
+        List<String> acceptableLocationProviders = locationManager.getProviders(criteriaForLocationService, true);
+
+        if (!acceptableLocationProviders.isEmpty())
+        {
+            return acceptableLocationProviders.get(0);
+        }
+        else
+        {
+            return "";
+        }
     }
 
     public static boolean isMetric(Context context) {
