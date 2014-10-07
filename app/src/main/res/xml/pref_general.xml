@@ -19,7 +19,7 @@
         android:defaultValue="@string/pref_location_default"
         android:hint="@string/pref_location_hint"
         android:dependency="@string/pref_enable_gps_location"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
         android:singleLine="true" />
 
     <ListPreference

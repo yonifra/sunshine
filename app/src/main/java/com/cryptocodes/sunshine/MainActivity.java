@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -26,18 +25,34 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback,
                                                                GooglePlayServicesClient.ConnectionCallbacks,
-                                                               GooglePlayServicesClient.OnConnectionFailedListener {
+                                                               GooglePlayServicesClient.OnConnectionFailedListener,
+                                                               LocationListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     public static String CURRENT_GPS_CITY_NAME;
+
+    // Milliseconds per second
+    private static final int MILLISECONDS_PER_SECOND = 1000;
+    // Update frequency in seconds
+    public static final int UPDATE_INTERVAL_IN_SECONDS = 180;
+    // Update frequency in milliseconds
+    private static final long UPDATE_INTERVAL =
+            MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
+    // The fastest update frequency, in seconds
+    private static final int FASTEST_INTERVAL_IN_SECONDS = 60;
+    // A fast frequency ceiling in milliseconds
+    private static final long FASTEST_INTERVAL =
+            MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
 
     private static Menu mMenu; // reference to the menu
     private boolean mTwoPane;
@@ -45,13 +60,40 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     private MainReceiver receiver;
     private LocationClient mLocationClient;
     private Geocoder mGeocoder;
+
     // Global variable to hold the current location
     Location mCurrentLocation;
+
+    // Define an object that holds accuracy and frequency parameters
+    LocationRequest mLocationRequest;
+    private SharedPreferences mPrefs;
+    private SharedPreferences.Editor mEditor;
+    boolean mUpdatesRequested;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create();
+
+        // Use balanced accuracy (city block accuracy)
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        // Set the update interval to 5 seconds
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+
+        // Set the fastest update interval to 1 second
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Open the shared preferences
+        mPrefs = getSharedPreferences("SharedPreferences",
+                Context.MODE_PRIVATE);
+        // Get a SharedPreferences editor
+        mEditor = mPrefs.edit();
+
+        mUpdatesRequested = false;
 
         receiver = new MainReceiver();
         mGeocoder = new Geocoder(this);
@@ -104,12 +146,32 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
     @Override
     protected void onResume() {
+        /*
+         * Get any previous setting for location updates
+         * Gets "false" if an error occurs
+         */
+        if (mPrefs.contains("KEY_UPDATES_ON")) {
+
+            boolean defaultUpdatesState = mPrefs.getBoolean(this.getString(R.string.pref_enable_gps_location), this.getString(R.string.pref_enable_gps_default) == "true");
+
+            mUpdatesRequested = mPrefs.getBoolean("KEY_UPDATES_ON", defaultUpdatesState);
+
+            // Otherwise, turn off location updates
+        } else {
+            mEditor.putBoolean("KEY_UPDATES_ON", true);
+            mEditor.commit();
+        }
+
         super.onResume();
         registerReceiver(receiver, mCityNameFilter);
     }
 
     @Override
     protected void onPause() {
+        // Save the current setting for updates
+        mEditor.putBoolean("KEY_UPDATES_ON", mUpdatesRequested);
+        mEditor.commit();
+
         super.onPause();
         unregisterReceiver(receiver);
     }
@@ -187,6 +249,11 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
      */
     @Override
     public void onConnected(Bundle bundle) {
+        // If already requested, start periodic updates
+      //  if (mUpdatesRequested) {
+            mLocationClient.requestLocationUpdates(mLocationRequest, this);
+       // }
+
         // Get the current location
         mCurrentLocation = mLocationClient.getLastLocation();
 
@@ -201,13 +268,14 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                     editor1.putString(getString(R.string.pref_location_key), cityName);
                     editor1.commit();
                     CURRENT_GPS_CITY_NAME = cityName;
+                    SunshineSyncAdapter.CURRENT_CITY_NAME = CURRENT_GPS_CITY_NAME;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Something went wrong, try debugging", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Failed to get location", Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this, "No current location yet available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Current location not available", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -300,6 +368,16 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
      */
     @Override
     protected void onStop() {
+        // If the client is connected
+        if (mLocationClient.isConnected()) {
+            /*
+             * Remove location updates for a listener.
+             * The current Activity is the listener, so
+             * the argument is "this".
+             */
+            mLocationClient.removeLocationUpdates(this);
+        }
+
         // Disconnecting the client invalidates it.
         mLocationClient.disconnect();
         super.onStop();
@@ -340,6 +418,15 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
             return false;
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // Report to the UI that the location was updated
+        String msg = "Updated Location: " +
+                Double.toString(location.getLatitude()) + "," +
+                Double.toString(location.getLongitude());
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public class MainReceiver extends BroadcastReceiver {
