@@ -33,7 +33,7 @@
     <string name="pref_units_label_imperial">Impériale</string>
 
     <!-- Language-specific constants -->
-    <string name="today">Aujourd'hui</string>
+    <string name="today">Aujourd\'hui</string>
 
     <!-- For labelling tomorrow's forecast [CHAR LIMIT=15] -->
     <string name="tomorrow">Demain</string>
