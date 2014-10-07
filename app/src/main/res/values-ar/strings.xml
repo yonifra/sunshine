@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="action_settings">إعدادات</string>
+    <string name="action_refresh">التحديث</string>
+    <string name="action_about">حول ...</string>
+    <string name="action_share">حصة</string>
+    <string name="title_activity_detail">تفاصيل الطقس</string>
+    <string name="title_activity_about">حول Sunshine</string>
+    <string name="pref_location_label">موقع</string>
+    <string name="pref_location_hint">أدخل إسم المدينة</string>
+    <string name="pref_units_label">وحدات درجة الحرارة</string>
+    <string name="view_location">عرض الموقع</string>
+
+    <!-- Notification Format -->
+    <string name="format_notification">
+    توقعات: <xliff:g id="condition">%1$s</xliff:g> عالية: <xliff:g id="high">%2$s</xliff:g> منخفضة: <xliff:g id="low">%3$s</xliff:g>
+    </string>
+
+    <string name="pref_enable_notifications_label">الطقس الإخطارات</string>
+    <string name="pref_enable_notifications_true">تمكين</string>
+    <string name="pref_enable_notifications_false">المعوقين</string>
+    <string name="pref_enable_gps_true">تمكين</string>
+    <string name="pref_enable_gps_false">المعوقين</string>
+    <string name="pref_enable_gps_header">التلقائي الموقع</string>
+
+    <!-- Strings for formatting weather-related data -->
+
+    <!-- Label for metric option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_metric">متري</string>
+
+    <!-- Label for imperial option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_imperial">الامبراطوري</string>
+
+    <!-- Language-specific constants -->
+    <string name="today">اليوم</string>
+
+    <!-- For labelling tomorrow's forecast [CHAR LIMIT=15] -->
+    <string name="tomorrow">غدا</string>
+
+    <!-- Date format [CHAR LIMIT=NONE] -->
+    <string name="format_full_friendly_date">
+        <xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>
+    </string>
+
+    <!-- Strings for formatting weather-related data -->
+    <!-- Temperature format [CHAR LIMIT=5 -->
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
+
+    <!-- Windspeed formats -->
+    <!-- Wind in mph [CHAR LIMIT=25] -->
+    <string name="format_wind_mph">الرياح: <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+    <!-- Wind in kph [CHAR LIMIT=25] -->
+    <string name="format_wind_kmh">الرياح: <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+
+    <!-- Pressure format CHAR LIMIT=25] -->
+    <string name="format_pressure">الضغط: <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+
+    <!-- Humidity format CHAR LIMIT=25]-->
+    <string name="format_humidity">الرطوبة: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+
+    <!-- Share format [CHAR LIMIT=NONE]-->
+    <string name="format_share">
+        الطقس ل <xliff:g id="date">%1$s</xliff:g> في <xliff:g id="location">%2$s</xliff:g>:
+        العليا لل <xliff:g id="high">%3$s</xliff:g> وأدنى مستوى
+        <xliff:g id="low">%4$s</xliff:g></string>
+
+    <string name="Location_Not_Available">الموقع الحالي غير متوفر</string>
+
+</resources>

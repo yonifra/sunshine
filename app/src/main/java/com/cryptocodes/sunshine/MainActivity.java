@@ -191,6 +191,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                // Sanity check - prevents the app from crashing if this method
+                // is run too soon in the app's lifecycle
+                if (mMenu == null || cityName == null) return;
+
                 MenuItem item = mMenu.findItem(R.id.action_city_name);
 
                 if (item != null) {
@@ -250,9 +254,9 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     @Override
     public void onConnected(Bundle bundle) {
         // If already requested, start periodic updates
-      //  if (mUpdatesRequested) {
+        if (mUpdatesRequested) {
             mLocationClient.requestLocationUpdates(mLocationRequest, this);
-       // }
+        }
 
         // Get the current location
         mCurrentLocation = mLocationClient.getLastLocation();
@@ -262,20 +266,28 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                 List<Address> resolvedAddresses= mGeocoder.getFromLocation(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 1);
                 if (!resolvedAddresses.isEmpty()) {
                     String cityName = resolvedAddresses.get(0).getLocality().toString();
-                    Toast.makeText(this, "Connected!\nYou're at " + cityName, Toast.LENGTH_LONG).show();
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-                    SharedPreferences.Editor editor1 = settings.edit();
-                    editor1.putString(getString(R.string.pref_location_key), cityName);
-                    editor1.commit();
                     CURRENT_GPS_CITY_NAME = cityName;
-                    SunshineSyncAdapter.CURRENT_CITY_NAME = CURRENT_GPS_CITY_NAME;
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+                    if (settings.getBoolean(this.getString(R.string.pref_enable_gps_location), true)) {
+                        // Update the settings and the sync adapters' location only if GPS is on
+                        SharedPreferences.Editor editor1 = settings.edit();
+                        editor1.putString(getString(R.string.pref_location_key), cityName);
+                        editor1.commit();
+                        SunshineSyncAdapter.CURRENT_CITY_NAME = CURRENT_GPS_CITY_NAME;
+                        //Toast.makeText(this, "Connected!\nYou're at " + cityName, Toast.LENGTH_LONG).show();
+                        Log.i(LOG_TAG, "Connected! Now at " + cityName);
+                        updateCityName(cityName);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Failed to get location", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Failed to get location", Toast.LENGTH_LONG).show();
+                Log.i(LOG_TAG, "Failed to get location. Message: " + e.getMessage());
             }
         } else {
-            Toast.makeText(this, "Current location not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.Location_Not_Available), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -286,8 +298,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     @Override
     public void onDisconnected() {
         // Display the connection status
-        Toast.makeText(this, "Disconnected. Please re-connect.",
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
+        Log.i(LOG_TAG, "Location client disconnected, needs to reconnect");
     }
 
     /*

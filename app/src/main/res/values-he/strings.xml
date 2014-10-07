@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="action_settings">הגדרות</string>
+    <string name="action_refresh">רענן</string>
+    <string name="action_about">אודות...</string>
+    <string name="action_share">שתף</string>
+    <string name="title_activity_detail">פרטי מזג האויר</string>
+    <string name="title_activity_about">אודות Sunshine</string>
+    <string name="pref_location_label">מיקום</string>
+    <string name="pref_location_hint">הכנס עיר באנגלית</string>
+    <string name="pref_units_label">יחידות טמפרטורה</string>
+    <string name="view_location">צפה במיקום</string>
+
+    <!-- Notification Format -->
+    <string name="format_notification">
+    תחזית מזג האויר: <xliff:g id="condition">%1$s</xliff:g> מקסימום: <xliff:g id="high">%2$s</xliff:g> מינימום: <xliff:g id="low">%3$s</xliff:g>
+    </string>
+
+    <string name="pref_enable_notifications_label">הודעות מזג אויר</string>
+    <string name="pref_enable_notifications_true">מאופשר</string>
+    <string name="pref_enable_notifications_false">מכובה</string>
+    <string name="pref_enable_gps_true">מאופשר</string>
+    <string name="pref_enable_gps_false">מכובה</string>
+    <string name="pref_enable_gps_header">מיקום אוטומטי</string>
+
+    <!-- Strings for formatting weather-related data -->
+
+    <!-- Label for metric option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_metric">צלזיוס</string>
+
+    <!-- Label for imperial option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_imperial">פרנהייט</string>
+
+    <!-- Language-specific constants -->
+    <string name="today">היום</string>
+
+    <!-- For labelling tomorrow's forecast [CHAR LIMIT=15] -->
+    <string name="tomorrow">מחר</string>
+
+    <!-- Date format [CHAR LIMIT=NONE] -->
+    <string name="format_full_friendly_date">
+        <xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>
+    </string>
+
+    <!-- Strings for formatting weather-related data -->
+    <!-- Temperature format [CHAR LIMIT=5 -->
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
+
+    <!-- Windspeed formats -->
+    <!-- Wind in mph [CHAR LIMIT=25] -->
+    <string name="format_wind_mph">רוח: <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+    <!-- Wind in kph [CHAR LIMIT=25] -->
+    <string name="format_wind_kmh">רוח: <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+
+    <!-- Pressure format CHAR LIMIT=25] -->
+    <string name="format_pressure">לחץ ברומטרי: <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+
+    <!-- Humidity format CHAR LIMIT=25]-->
+    <string name="format_humidity">לחות: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+
+    <!-- Share format [CHAR LIMIT=NONE]-->
+    <string name="format_share">
+        מזג האויר עבור <xliff:g id="date">%1$s</xliff:g> ב <xliff:g id="location">%2$s</xliff:g>:
+        טמפרטורה מקסימלית של  <xliff:g id="high">%3$s</xliff:g> ומינימום
+        <xliff:g id="low">%4$s</xliff:g></string>
+
+    <string name="Location_Not_Available">מיקום נוכחי לא ידוע</string>
+
+</resources>

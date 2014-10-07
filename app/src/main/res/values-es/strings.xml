@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="action_settings">Ajustes</string>
+    <string name="action_refresh">Actualizar</string>
+    <string name="action_about">Acerca de…</string>
+    <string name="action_share">Compartir</string>
+    <string name="title_activity_detail">Detalles del Clima</string>
+    <string name="title_activity_about">Acerca de Sunshine</string>
+    <string name="pref_location_label">Ubicación</string>
+    <string name="pref_location_hint">Nombre de la ciudad</string>
+    <string name="pref_units_label">Unidades de Temperatura</string>
+    <string name="view_location">Ver Ubicación</string>
+
+    <!-- Notification Format -->
+    <string name="format_notification">
+    Pronóstico: <xliff:g id="condition">%1$s</xliff:g> Alta: <xliff:g id="high">%2$s</xliff:g> Baja: <xliff:g id="low">%3$s</xliff:g>
+    </string>
+
+    <string name="pref_enable_notifications_label">Notificaciones</string>
+    <string name="pref_enable_notifications_true">Activado</string>
+    <string name="pref_enable_notifications_false">Apagado</string>
+    <string name="pref_enable_gps_true">Activado</string>
+    <string name="pref_enable_gps_false">Apagado</string>
+    <string name="pref_enable_gps_header">Localización Automática</string>
+
+    <!-- Strings for formatting weather-related data -->
+
+    <!-- Label for metric option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_metric">Métricas</string>
+
+    <!-- Label for imperial option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_imperial">Imperiales</string>
+
+    <!-- Language-specific constants -->
+    <string name="today">Hoy</string>
+
+    <!-- For labelling tomorrow's forecast [CHAR LIMIT=15] -->
+    <string name="tomorrow">Mañana</string>
+
+    <!-- Date format [CHAR LIMIT=NONE] -->
+    <string name="format_full_friendly_date">
+        <xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>
+    </string>
+
+    <!-- Strings for formatting weather-related data -->
+    <!-- Temperature format [CHAR LIMIT=5 -->
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
+
+    <!-- Windspeed formats -->
+    <!-- Wind in mph [CHAR LIMIT=25] -->
+    <string name="format_wind_mph">Viento: <xliff:g id="speed">%1$1.0f</xliff:g> mph <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+    <!-- Wind in kph [CHAR LIMIT=25] -->
+    <string name="format_wind_kmh">Viento: <xliff:g id="speed">%1$1.0f</xliff:g> km/h <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+
+    <!-- Pressure format CHAR LIMIT=25] -->
+    <string name="format_pressure">Presión: <xliff:g id="pressure">%1.0f</xliff:g> hPa</string>
+
+    <!-- Humidity format CHAR LIMIT=25]-->
+    <string name="format_humidity">Humedad: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
+
+    <!-- Share format [CHAR LIMIT=NONE]-->
+    <string name="format_share">
+        El tiempo para <xliff:g id="date">%1$s</xliff:g> en <xliff:g id="location">%2$s</xliff:g>:
+        Alta temp. de <xliff:g id="high">%3$s</xliff:g> y baja de
+        <xliff:g id="low">%4$s</xliff:g></string>
+
+    <string name="Location_Not_Available">Ubicación actual no está disponible</string>
+
+</resources>

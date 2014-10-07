@@ -2,7 +2,6 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
     <string name="app_name">Sunshine</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_about">About…</string>
@@ -11,8 +10,8 @@
     <string name="title_activity_about">About Sunshine</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_label">Location</string>
-    <string name="pref_location_default" translatable="false">94043</string>
-    <string name="pref_location_hint">Location zip code (e.g 94034)</string>
+    <string name="pref_location_default" translatable="false">New York</string>
+    <string name="pref_location_hint">City name or zip code (e.g "New York")</string>
     <string name="pref_units_default" translatable="false">metric</string>
     <string name="pref_units_label">Temperature Units</string>
     <string name="pref_units_key" translatable="false">units</string>
@@ -91,8 +90,9 @@
     <string name="sync_account_type">sunshine.cryptocodes.com</string>
     <string name="content_authority">"com.cryptocodes.sunshine"</string>
     <string name="about_message">Made with love by the folks at Cryptocodes, Inc.</string>
-    <string name="about_version">Version 1.0.3</string>
-    <string name="about_date">September 16th, 2014</string>
+    <string name="about_version">Version 1.0.4</string>
+    <string name="about_date">October 8th, 2014</string>
     <string name="about_weather_provider">Weather information provided by OpenWeatherMap</string>
+    <string name="Location_Not_Available">Current location not available</string>
 
 </resources>
