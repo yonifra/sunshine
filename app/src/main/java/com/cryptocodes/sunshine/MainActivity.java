@@ -43,13 +43,13 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
     // Milliseconds per second
     private static final int MILLISECONDS_PER_SECOND = 1000;
-    // Update frequency in seconds
-    public static final int UPDATE_INTERVAL_IN_SECONDS = 180;
+    // Update frequency in seconds (3 hours)
+    public static final int UPDATE_INTERVAL_IN_SECONDS = 10800;
     // Update frequency in milliseconds
     private static final long UPDATE_INTERVAL =
             MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
-    // The fastest update frequency, in seconds
-    private static final int FASTEST_INTERVAL_IN_SECONDS = 60;
+    // The fastest update frequency, in seconds (1 hour)
+    private static final int FASTEST_INTERVAL_IN_SECONDS = 3600;
     // A fast frequency ceiling in milliseconds
     private static final long FASTEST_INTERVAL =
             MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         mLocationRequest = LocationRequest.create();
 
         // Use balanced accuracy (city block accuracy)
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         // Set the update interval to 5 seconds
         mLocationRequest.setInterval(UPDATE_INTERVAL);
