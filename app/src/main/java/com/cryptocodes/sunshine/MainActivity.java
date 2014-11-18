@@ -265,7 +265,13 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             try {
                 List<Address> resolvedAddresses= mGeocoder.getFromLocation(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 1);
                 if (!resolvedAddresses.isEmpty()) {
-                    String cityName = resolvedAddresses.get(0).getLocality().toString();
+                    String cityName = resolvedAddresses.get(0).getLocality();
+
+                    if (cityName == null) {
+                        Toast.makeText(this, getString(R.string.Location_Not_Available), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
                     CURRENT_GPS_CITY_NAME = cityName;
 
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
